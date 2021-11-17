@@ -61,12 +61,6 @@
                           @endforeach
                         </select>
                     </div>
-
-                    {{--  <div class="custom-file mb-4">
-                        <input type="file" class="custom-file-input" name="picture" id="picture" lang="es">
-                        <label class="custom-file-label" for="image">Seleccionar Archivo</label>
-                    </div>  --}}
-
                     <div class="card-body">
                         <h4 class="card-title d-flex">Imagen de producto
                           <small class="ml-auto align-self-end">
@@ -82,9 +76,6 @@
                      </a>
                      {!! Form::close() !!}
                 </div>
-                {{--  <div class="card-footer text-muted">
-                    {{$products->render()}}
-                </div>  --}}
             </div>
         </div>
     </div>

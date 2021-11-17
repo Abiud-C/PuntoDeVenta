@@ -63,5 +63,5 @@ Route::get('/barcode', function () {
 });
 
 //Auth::routes();
-Auth::routes(['register' => false]);
+Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');

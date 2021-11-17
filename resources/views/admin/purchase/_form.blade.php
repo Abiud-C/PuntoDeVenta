@@ -64,9 +64,9 @@
                 <tr>
                     <th>Eliminar</th>
                     <th>Producto</th>
-                    <th>Precio(PEN)</th>
+                    <th>Precio(MX)</th>
                     <th>Cantidad</th>
-                    <th>SubTotal(PEN)</th>
+                    <th>SubTotal(MX)</th>
                 </tr>
             </thead>
             <tfoot>

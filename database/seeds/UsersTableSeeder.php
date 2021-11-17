@@ -20,9 +20,9 @@ class UsersTableSeeder extends Seeder
         ]);
 
         $user = User::create([
-            'name'=>'Cristian',
-            'email'=>'Cristian@gmail.com',
-            'password'=>'$2y$10$o.CnHSqHSCQ7qSj4zlJU7u0N1QiKqrIjJ2bLP8j/wdw3W8NCA3DkK',
+            'name'=>'Abiud',
+            'email'=>'aj.al970719@gmail.com',
+            'password'=>'$2y$10$HD7ULZd8PsMQ.oBLjrcVxOPkEYW7DXhIg/4uP6fDRYaY92oFHWx.S',
         ]);
 
         $user->roles()->sync(1);

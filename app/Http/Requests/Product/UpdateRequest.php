@@ -24,27 +24,29 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'string|required|unique:products,name,'.
-            $this->route('product')->id.'|max:255',
-            'image'=>'required|dimensions:min_width=100,minheight=200',
-            'sell_price'=>'required|',
-            'category_id'=>'integer|required|exists:App\Category_id',
-            'provider_id'=>'integer|required|exists:App\Provider_id',
+
+            'name'=>'string|required|unique:products,name,'.$this->route('product')->id.'|max:255',
+            
+            'sell_price'=>'required',
+            'category_id'=>'integer|required|exists:App\Category,id',
+            'provider_id'=>'integer|required|exists:App\Provider,id',
+
+             'code'=>'nullable|string|max:8|min:8',   
         ];
     }
-
     public function messages()
     {
         return[
-            'nombre.string'=>'El valor no es correcto.',
-            'nombre.required'=>'Este campo es requerido.',
-            'nombre.unique'=>'El producot ya esta registrado.',
-            'nombre.max'=>'Solo se permite 255 caracteres.',
+            'name.string'=>'El valor no es correcto.',
+            'name.required'=>'El campo es requerido.',
+            'name.unique'=>'El producto ya está registrado.',
+            'name.max'=>'Solo se permite 255 caracteres.',
 
-            'image.required'=>'El valor no es correcto.',
-            'image.dimensions'=>'Solo se permiten imágenes de 100x200 px.',
+            'code.string'=>'El valor no es correcto.',
+            'code.max'=>'Solo se permite 8 dígitos.',
+            'code.min'=>'Se requiere de 8 dígitos.',
 
-            'sell_price.required'=>'Este campo es requerido.',
+            'sell_price.required'=>'El campo es requerido.',
 
             'category_id.integer'=>'El valor tiene que ser entero.',
             'category_id.required'=>'El campo es requerido.',
@@ -53,8 +55,6 @@ class UpdateRequest extends FormRequest
             'provider_id.integer'=>'El valor tiene que ser entero.',
             'provider_id.required'=>'El campo es requerido.',
             'provider_id.exists'=>'El proveedor no existe.',
-        
-
         ];
     }
 }
