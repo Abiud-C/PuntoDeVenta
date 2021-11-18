@@ -53,6 +53,7 @@
 
 {!! Html::script('select/dist/js/bootstrap-select.min.js') !!}
 {!! Html::script('js/sweetalert2.all.min.js') !!}
+
 <script>
     $(document).ready(function () {
         $("#agregar").click(function () {

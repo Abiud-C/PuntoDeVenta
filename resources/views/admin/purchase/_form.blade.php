@@ -31,7 +31,6 @@
     <div class="form-group col-md-6">
         <div class="form-group">
             <label for="product_id">Producto</label>
-            {{--  <select class="form-control selectpicker" data-live-search="true" name="product_id" id="product_id">  --}}
             <select class="form-control" name="product_id" id="product_id">
                 <option value="" disabled selected>Selecccione un producto</option>
                 @foreach ($products as $product)
