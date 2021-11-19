@@ -100,7 +100,7 @@ class SaleController extends Controller
             foreach ($saleDetails as $saleDetail) {
                 $subtotal += $saleDetail->quantity*$saleDetail->price-$saleDetail->quantity* $saleDetail->price*$saleDetail->discount/100;
             }  
-            //nombre de la impresora que le da el sistema
+
             $printer_name = "TM20";
             $connector = new WindowsPrintConnector($printer_name);
             $printer = new Printer($connector);
@@ -117,7 +117,7 @@ class SaleController extends Controller
             return redirect()->back();
         }
     }
-    //Funcion para poder actualizar estado de la venta
+
     public function change_status(Sale $sale)
     {
         if ($sale->status == 'VALID') {

@@ -19,6 +19,6 @@ class Sale extends Model
     }
 
     public function saleDetails(){
-        return $this->belongsTo(SaleDetail::class);
+        return $this->hasMany(saleDetail::class);
     }
 }

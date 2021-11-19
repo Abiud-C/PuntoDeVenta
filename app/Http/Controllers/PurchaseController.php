@@ -81,15 +81,15 @@ class PurchaseController extends Controller
     }
 
     public function pdf(Purchase $purchase)
-     {
-         $subtotal = 0 ;
-         $purchaseDetails = $purchase->purchaseDetails;
-         foreach ($purchaseDetails as $purchaseDetail) {
-             $subtotal += $purchaseDetail->quantity * $purchaseDetail->price;
-         }
-         $pdf = PDF::loadView('admin.purchase.pdf', compact('purchase', 'subtotal', 'purchaseDetails'));
-         return $pdf->download('Reporte_de_compra_'.$purchase->id.'.pdf');
-     }
+    {
+        $subtotal = 0 ;
+        $purchaseDetails = $purchase->purchaseDetails;
+        foreach ($purchaseDetails as $purchaseDetail) {
+            $subtotal += $purchaseDetail->quantity * $purchaseDetail->price;
+        }
+        $pdf = PDF::loadView('admin.purchase.pdf', compact('purchase', 'subtotal', 'purchaseDetails'));
+        return $pdf->download('Reporte_de_compra_'.$purchase->id.'.pdf');
+    }
     
     public function upload(Request $reques, Purchase $purchase)
     {
