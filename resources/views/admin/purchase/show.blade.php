@@ -34,15 +34,15 @@
                     <div class="form-group row">
                         <div class="col-md-4 text-center">
                             <label class="form-control-label" for="nombre"><strong>Proveedor</strong></label>
-                            <p>{{$purchase->provider->name}}</p>
+                            <p>{{$purchase_details->provider->name}}</p>
                         </div>
                         <div class="col-md-4 text-center">
                             <label class="form-control-label" for="num_compra"><strong>Número Compra</strong></label>
-                            <p>{{$purchase->id}}</p>
+                            <p>{{$purchase_details->id}}</p>
                         </div>
                         <div class="col-md-4 text-center">
                             <label class="form-control-label" for="num_compra"><strong>Comprador</strong></label>
-                            <p>{{$purchase->user->name}}</p>
+                            <p>{{$purchase_details->user->name}}</p>
                         </div>
                     </div>
                     <br /><br />
@@ -69,10 +69,10 @@
                                     </tr>
                                     <tr>
                                         <th colspan="3">
-                                            <p align="right">TOTAL IMPUESTO ({{$purchase->tax}}%):</p>
+                                            <p align="right">TOTAL IMPUESTO ({{$purchase_details->tax}}%):</p>
                                         </th>
                                         <th>
-                                            <p align="right">MXN/{{number_format($subtotal*$purchase->tax/100,2)}}</p>
+                                            <p align="right">MXN/{{number_format($subtotal*$purchase_details->tax/100,2)}}</p>
                                         </th>
                                     </tr>
                                     <tr>
@@ -80,7 +80,7 @@
                                             <p align="right">TOTAL:</p>
                                         </th>
                                         <th>
-                                            <p align="right">MXN/{{number_format($purchase->total,2)}}</p>
+                                            <p align="right">MXN/{{number_format($purchase_details->total,2)}}</p>
                                         </th>
                                     </tr>
                     

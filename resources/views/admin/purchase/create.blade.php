@@ -16,7 +16,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Panel administrador</a></li>
-                <li class="breadcrumb-item"><a href="{{route('purchases.index')}}">Compras</a></li>
+                <li class="breadcrumb-item"><a href="{{route('purchases_details.index')}}">Compras</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Registro de compra</li>
             </ol>
         </nav>
@@ -24,7 +24,7 @@
     <div class="row">
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
-                {!! Form::open(['route'=>'purchases.store', 'method'=>'POST']) !!}
+                {!! Form::open(['route'=>'purchases_details.store', 'method'=>'POST']) !!}
                 <div class="card-body">
                     
                     <div class="d-flex justify-content-between">
@@ -37,7 +37,7 @@
                 </div>
                 <div class="card-footer text-muted">
                     <button type="submit" id="guardar" class="btn btn-primary float-right">Registrar</button>
-                     <a href="{{route('purchases.index')}}" class="btn btn-light">
+                     <a href="{{route('purchases_details.index')}}" class="btn btn-light">
                         Cancelar
                      </a>
                 </div>

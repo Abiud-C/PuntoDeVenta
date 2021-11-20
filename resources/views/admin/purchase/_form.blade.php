@@ -1,5 +1,5 @@
 <div class="form-row">
-    <div class="form-group col-md-8">
+    <!-- <div class="form-group col-md-8">
         <div class="form-group">
             <label for="provider_id">Proveedor</label>
             <select class="form-control" name="provider_id" id="provider_id">
@@ -8,7 +8,7 @@
                 @endforeach
             </select>
         </div>
-    </div>
+    </div> -->
     <div class="form-group col-md-4">
         <label for="tax">Impuesto</label>
         <div class="input-group">

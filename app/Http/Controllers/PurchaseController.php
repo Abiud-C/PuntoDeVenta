@@ -34,8 +34,12 @@ class PurchaseController extends Controller
 
     public function index()
     {
+        $purchases_details = null;
         $purchases = Purchase::get();
-        return view('admin.purchase.index', compact('purchases'));
+        foreach ($purchases as $p) {
+            $purchases_details = PurchaseDetails::where('purchase_id', $p->id );
+        }
+        return view('admin.purchase.index', compact('purchases_details'));
     }
     public function create()
     {
