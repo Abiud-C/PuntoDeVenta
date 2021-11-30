@@ -51,6 +51,9 @@ class PurchaseController extends Controller
         ]);
         foreach ($request->product_id as $key => $product) {
             $results[] = array("product_id"=>$request->product_id[$key], "quantity"=>$request->quantity[$key], "price"=>$request->price[$key]);
+            $productstock = Product::where('id', $request->product_id[$key])->get();
+            $stock = $productstock[0]->stock + $request->quantity[$key];
+            Product::where('id', $request->product_id[$key])->update(['stock' => $stock]);
         }
         $purchase->purchaseDetails()->createMany($results);
         return redirect()->route('purchases.index');
@@ -99,11 +102,14 @@ class PurchaseController extends Controller
 
     public function change_status(Purchase $purchase)
     {
-        if ($purchase->status == 'VALID') {
-            $purchase->update(['status'=>'CANCELED']);
+        if ($purchase->status == 'PENDIENT') {
+            $purchase->update(['status'=>'PENDIENT']);
             return redirect()->back();
-        } else {
-            $purchase->update(['status'=>'VALID']);
+        } else if($purchase->status == 'ACTIVE'){
+            $purchase->update(['status'=>'ACTIVE']);
+            return redirect()->back();
+        }else if($purchase->status == 'CANCELED') {
+            $purchase->update(['status'=>'CANCELED']);
             return redirect()->back();
         } 
     }

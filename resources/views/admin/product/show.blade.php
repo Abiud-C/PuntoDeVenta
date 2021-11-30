@@ -114,7 +114,7 @@
                                         <hr>
                                         <strong><i class="fas fa-envelope mr-1"></i> Código de barras</strong>
                                         <p class="text-muted">
-                                            {!!DNS1D::getBarcodeHTML($product->code, 'EAN13'); !!}
+                                            {{$product->code}}
                                         </p>
                                         <hr>
                                         {{--  <strong><i class="fas fa-map-marked-alt mr-1"></i> Categoría</strong>

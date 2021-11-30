@@ -23,7 +23,7 @@ class CreateSalesTable extends Migration
             $table->dateTime('sale_date');
             $table->decimal('tax');//IMPUESTO AL PRODUCTO
             $table->decimal('total');
-            $table->enum('status',['VALID','CANCELED'])->default('VALID');
+            $table->enum('status',['VALID', 'CANCELED'])->default('VALID');
 
             $table->timestamps();
         });

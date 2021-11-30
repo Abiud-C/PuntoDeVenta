@@ -72,7 +72,7 @@
             url: "{{route('get_products_by_id')}}",
             method: 'GET',
             data:{
-                product_id: product_id.val(),
+                product_id: document.getElementById("product_id").value,
             },
             success: function(data){
                 $("#code").val(data.code);

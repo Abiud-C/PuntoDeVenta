@@ -160,8 +160,8 @@
                     <tr>
                         <td>{{$purchaseDetail->quantity}}</td>
                         <td>{{$purchaseDetail->product->name}}</td>
-                        <td>s/ {{$purchaseDetail->price}}</td>
-                        <td>s/ {{number_format($purchaseDetail->quantity*$purchaseDetail->price,2)}}</td>
+                        <td>MXN/ {{$purchaseDetail->price}}</td>
+                        <td>MXN/ {{number_format($purchaseDetail->quantity*$purchaseDetail->price,2)}}</td>
                     </tr>
                     @endforeach
                 </tbody>

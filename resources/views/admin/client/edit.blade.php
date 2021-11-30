@@ -37,12 +37,6 @@
                       <input type="text"
                         class="form-control" name="name" id="name" value="{{$client->name}}" aria-describedby="helpId" required>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="dni">DNI</label>
-                        <input type="number"
-                          class="form-control" name="dni" id="dni" value="{{$client->dni}}" aria-describedby="helpId" required>
-                    </div>
 
                     <div class="form-group">
                         <label for="ruc">RUC</label>
