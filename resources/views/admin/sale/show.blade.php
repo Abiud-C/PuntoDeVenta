@@ -104,7 +104,7 @@
                     </div>
                 </div>
                 <div class="card-footer text-muted">
-                    <a href="{{route('sales.index')}}" class="btn btn-primary float-right">Regresar</a>
+                    <a href="javascript: history.go(-1)" class="btn btn-primary float-right">Regresar</a>
                 </div>
             </div>
         </div>

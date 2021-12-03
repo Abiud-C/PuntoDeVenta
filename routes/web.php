@@ -3,9 +3,14 @@
 use App\Product;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function() {
+/*Route::get('/', function() {
+    return view('layouts.login');
+});*/
+
+Route::get('/', function () {
     return redirect()->route('login');
 });
+
 //vistas de reportes
 Route::get('sales/reports_day', 'ReportController@reports_day')->name('reports.day');
 Route::get('sales/reports_date', 'ReportController@reports_date')->name('reports.date');
@@ -63,5 +68,5 @@ Route::get('/barcode', function () {
 });
 
 //Auth::routes();
-Auth::routes();
+Auth::routes(['register' => false]);
 Route::get('/home', 'HomeController@index')->name('home');

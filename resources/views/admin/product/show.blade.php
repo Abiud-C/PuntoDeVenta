@@ -35,14 +35,14 @@
                             <div class="border-bottom text-center pb-4">
 
                                 <img src="{{asset('image/'.$product->image)}}" alt="profile" class="img-lg  mb-3" />
-                               
+
 
 
                                 <h3>{{$product->name}}</h3>
                                 <div class="d-flex justify-content-between">
                                 </div>
                             </div>
-                            
+
                             <div class="py-4">
                                 <p class="clearfix">
                                     <span class="float-left">
@@ -58,7 +58,7 @@
                                     </span>
                                     <span class="float-right text-muted">
                                         <a href="{{route('providers.show',$product->provider->id)}}">
-                                        {{$product->provider->name}}
+                                            {{$product->provider->name}}
                                         </a>
                                     </span>
                                 </p>
@@ -67,16 +67,16 @@
                                         Categoría
                                     </span>
                                     <span class="float-right text-muted">
-                                        {{--  PRODUCTOS POR CATEGORIA  --}}
+                                        {{-- PRODUCTOS POR CATEGORIA  --}}
                                         <a href="">
                                             {{$product->category->name}}
                                         </a>
                                     </span>
                                 </p>
-                            
+
                             </div>
 
-                            {{--  <button class="btn btn-primary btn-block">{{$product->status}}</button>  --}}
+                            {{-- <button class="btn btn-primary btn-block">{{$product->status}}</button> --}}
                             @if ($product->status == 'ACTIVE')
                             <a href="{{route('change.status.products', $product)}}" class="btn btn-success btn-block">Activo</a>
                             @else
@@ -117,16 +117,16 @@
                                             {{$product->code}}
                                         </p>
                                         <hr>
-                                        {{--  <strong><i class="fas fa-map-marked-alt mr-1"></i> Categoría</strong>
+                                        {{-- <strong><i class="fas fa-map-marked-alt mr-1"></i> Categoría</strong>
                                         <p class="text-muted">
                                             {{$product->category->name}}
                                         </p>
-                                        <hr>  --}}
-                                        {{--  <strong><i class="fas fa-map-marked-alt mr-1"></i> Proveedor</strong>
+                                        <hr> --}}
+                                        {{-- <strong><i class="fas fa-map-marked-alt mr-1"></i> Proveedor</strong>
                                         <p class="text-muted">
                                             {{$product->provider->name}}
                                         </p>
-                                        <hr>  --}}
+                                        <hr> --}}
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +134,7 @@
                     </div>
                 </div>
                 <div class="card-footer text-muted">
-                    <a href="{{route('products.index')}}" class="btn btn-primary float-right">Regresar</a>
+                    <a href="javascript: history.go(-1)" class="btn btn-primary float-right">Regresar</a>
                 </div>
             </div>
         </div>

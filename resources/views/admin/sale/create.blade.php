@@ -13,7 +13,7 @@
 @section('create')
 <li class="nav-item d-none d-lg-flex">
     <a class="nav-link" type="button" data-toggle="modal" data-target="#exampleModal-2">
-      <span class="btn btn-warning">+ Registrar cliente</span>
+        <span class="btn btn-warning">+ Registrar cliente</span>
     </a>
 </li>
 @endsection
@@ -40,20 +40,20 @@
             <div class="card">
                 {!! Form::open(['route'=>'sales.store', 'method'=>'POST']) !!}
                 <div class="card-body">
-                    
+
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title">Registro de venta</h4>
                     </div>
-                    
+
                     @include('admin.sale._form')
-                     
-                     
+
+
                 </div>
                 <div class="card-footer text-muted">
                     <button type="submit" id="guardar" class="btn btn-primary float-right">Registrar</button>
-                     <a href="{{route('sales.index')}}" class="btn btn-light">
+                    <a href="{{route('sales.index')}}" class="btn btn-light">
                         Cancelar
-                     </a>
+                    </a>
                 </div>
                 {!! Form::close() !!}
             </div>
@@ -62,8 +62,7 @@
 </div>
 
 
-<div class="modal fade" id="exampleModal-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2"
-    aria-hidden="true">
+<div class="modal fade" id="exampleModal-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -96,7 +95,7 @@
                 <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
             </div>
 
-        {!! Form::close() !!}
+            {!! Form::close() !!}
 
         </div>
     </div>
@@ -109,132 +108,175 @@
 {!! Html::script('melody/js/avgrund.js') !!}
 
 {!! Html::script('select/dist/js/bootstrap-select.min.js') !!}
-{!! Html::script('js/sweetalert2.all.min.js') !!}
+{!! Html::script('css/dist/sweetalert2.all.min.js') !!}
 
 <script>
-    
-$(document).ready(function () {
-    $("#agregar").click(function () {
-        agregar();
-    });
-});
-var cont = 1;
-total = 0;
-subtotal = [];
-$("#guardar").hide();
-$("#product_id").change(mostrarValores);
+    var stockArray = [];
 
-//mostrar y separar el precio del stock
-function mostrarValores() {
-    datosProducto = document.getElementById('product_id').value.split('_');
-    $("#price").val(datosProducto[2]);
-    $("#stock").val(datosProducto[1]);
-}
-var product_id = $('#product_id');
-	
-    product_id.change(function(){
+    $(document).ready(function() {
+        $("#agregar").click(function() {
+            agregar();
+        });
+    });
+    var cont = 1;
+    total = 0;
+    subtotal = [];
+    $("#guardar").hide();
+    $("#product_id").change(mostrarValores);
+
+    //mostrar y separar el precio del stock
+    function mostrarValores() {
+        datosProducto = document.getElementById('product_id').value.split('_');
+        $("#price").val(datosProducto[2]);
+        $("#stock").val(datosProducto[1]);
+    }
+    var product_id = $('#product_id');
+
+    product_id.change(function() {
         $.ajax({
             url: "{{route('get_products_by_id')}}",
             method: 'GET',
-            data:{
-                product_id: product_id.val(),
+            data: {
+                product_id: document.getElementById("product_id").value,
             },
-            success: function(data){
+            success: function(data) {
+                var newstock;
+                var flag;
+                if (stockArray.length == 0) {
+                    newstock = data.stock;
+                } else {
+                    for (var stocks of stockArray) {
+                        if (stocks.ID == document.getElementById("product_id").value) {
+                            flag = true;
+                            newstock = stocks.Stock;
+                            //console.log(stocks);
+                        } else if (flag != true) {
+                            newstock = data.stock;
+                        }
+                    }
+                }
+                $("#price").val(data.sell_price);
+                $("#stock").val(newstock);
+                $("#code").val(data.code);
+            }
+        });
+    });
+    $(obtener_registro());
+
+    function obtener_registro(code) {
+        $.ajax({
+            url: "{{route('get_products_by_barcode')}}",
+            type: 'GET',
+            data: {
+                code: code
+            },
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
                 $("#price").val(data.sell_price);
                 $("#stock").val(data.stock);
-                $("#code").val(data.code);
-        }
-    });
-});
-$(obtener_registro());
-function obtener_registro(code){
-    $.ajax({
-        url: "{{route('get_products_by_barcode')}}",
-        type: 'GET',
-        data:{
-            code: code
-        },
-        dataType: 'json',
-        success:function(data){
-            console.log(data);
-            $("#price").val(data.sell_price);
-            $("#stock").val(data.stock);
-            $("#product_id").val(data.id);
-        }
-    });
-}
-$(document).on('keyup', '#code', function(){
-    var valorResultado = $(this).val();
-    if(valorResultado!=""){
-        obtener_registro(valorResultado);
-    }else{
-        obtener_registro();
+                $("#product_id").val(data.id);
+            }
+        });
     }
-})
-function agregar() {
-    datosProducto = document.getElementById('product_id').value.split('_');
-    product_id = datosProducto[0];
-    producto = $("#product_id option:selected").text();
-    quantity = $("#quantity").val();
-    discount = $("#discount").val();
-    price = $("#price").val();
-    stock = $("#stock").val();
-    impuesto = $("#tax").val();
-    if (product_id != "" && quantity != "" && quantity > 0 && discount != "" && price != "") {
-        //validacion para que no supere el stock actual de cada producto
-        if (parseInt(stock) >= parseInt(quantity)) {
-            subtotal[cont] = (quantity * price) - (quantity * price * discount / 100);
-            total = total + subtotal[cont];
-            var fila = '<tr class="selected" id="fila' + cont + '"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar(' + cont + ');"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="product_id[]" value="' + product_id + '">' + producto + '</td> <td> <input type="hidden" name="price[]" value="' + parseFloat(price).toFixed(2) + '"> <input class="form-control" type="number" value="' + parseFloat(price).toFixed(2) + '" disabled> </td> <td> <input type="hidden" name="discount[]" value="' + parseFloat(discount) + '"> <input class="form-control" type="number" value="' + parseFloat(discount) + '" disabled> </td> <td> <input type="hidden" name="quantity[]" value="' + quantity + '"> <input type="number" value="' + quantity + '" class="form-control" disabled> </td> <td align="right">s/' + parseFloat(subtotal[cont]).toFixed(2) + '</td></tr>';
-            cont++;
-            limpiar();
-            totales();
-            evaluar();
-            $('#detalles').append(fila);
+    $(document).on('keyup', '#code', function() {
+        var valorResultado = $(this).val();
+        if (valorResultado != "") {
+            obtener_registro(valorResultado);
+        } else {
+            obtener_registro();
+        }
+    })
+
+    function agregar() {
+        datosProducto = document.getElementById('product_id').value.split('_');
+        product_id = datosProducto[0];
+        producto = $("#product_id option:selected").text();
+        quantity = $("#quantity").val();
+        discount = $("#discount").val();
+        price = $("#price").val();
+        stock = $("#stock").val();
+        impuesto = $("#tax").val();
+        if (product_id != "" && quantity != "" && quantity > 0 && discount != "" && price != "") {
+            //validacion para que no supere el stock actual de cada producto
+            if (parseInt(stock) >= parseInt(quantity)) {
+                var stocktotal = stock - quantity;
+                stockArray.push({
+                    "ID": product_id,
+                    "Stock": stocktotal
+                });
+                document.getElementById("stock").value = stocktotal;
+                subtotal[cont] = (quantity * price) - (quantity * price * discount / 100);
+                total = total + subtotal[cont];
+                var fila = '<tr class="selected" id="fila' + cont + '"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar(' + cont + ');"><i class="fa fa-times fa-2x"></i></button></td> <td><input id="product' + cont + '" type="hidden" name="product_id[]" value="' + product_id + '">' + producto + '</td> <td> <input type="hidden" name="price[]" value="' + parseFloat(price).toFixed(2) + '"> <input class="form-control" type="number" value="' + parseFloat(price).toFixed(2) + '" disabled> </td> <td> <input type="hidden" name="discount[]" value="' + parseFloat(discount) + '"> <input class="form-control" type="number" value="' + parseFloat(discount) + '" disabled> </td> <td> <input id="quantity' + cont + '" type="hidden" name="quantity[]" value="' + quantity + '"> <input type="number" value="' + quantity + '" class="form-control" disabled> </td> <td align="right">s/' + parseFloat(subtotal[cont]).toFixed(2) + '</td></tr>';
+                cont++;
+                limpiar();
+                totales();
+                evaluar();
+                $('#detalles').append(fila);
+            } else {
+                Swal.fire({
+                    type: 'error',
+                    text: 'La cantidad a vender supera el stock.',
+                })
+            }
         } else {
             Swal.fire({
                 type: 'error',
-                text: 'La cantidad a vender supera el stock.',
+                text: 'Rellene todos los campos del detalle de la venta.',
             })
         }
-    } else {
-        Swal.fire({
-            type: 'error',
-            text: 'Rellene todos los campos del detalle de la venta.',
-        })
     }
-}
-function limpiar() {
-    $("#quantity").val("");
-    $("#discount").val("0");
-}
-function totales() {
-    $("#total").html("MXN " + total.toFixed(2));
-    total_impuesto = total * impuesto / 100;
-    total_pagar = total + total_impuesto;
-    $("#total_impuesto").html("MXN " + total_impuesto.toFixed(2));
-    $("#total_pagar_html").html("MXN " + total_pagar.toFixed(2));
-    $("#total_pagar").val(total_pagar.toFixed(2));
-}
-//Esta funcion evalua si hay datos agregados si es asi muestra o oculta el boton
-function evaluar() {
-    if (total > 0) {
-        $("#guardar").show();
-    } else {
-        $("#guardar").hide();
+
+    function limpiar() {
+        $("#quantity").val("");
+        $("#discount").val("0");
     }
-}
-function eliminar(index) {
-    total = total - subtotal[index];
-    total_impuesto = total * impuesto / 100;
-    total_pagar_html = total + total_impuesto;
-    $("#total").html("MXN" + total);
-    $("#total_impuesto").html("MXN" + total_impuesto);
-    $("#total_pagar_html").html("MXN" + total_pagar_html);
-    $("#total_pagar").val(total_pagar_html.toFixed(2));
-    $("#fila" + index).remove();
-    evaluar();
-}
+
+    function totales() {
+        $("#total").html("MXN " + total.toFixed(2));
+        total_impuesto = total * impuesto / 100;
+        total_pagar = total + total_impuesto;
+        $("#total_impuesto").html("MXN " + total_impuesto.toFixed(2));
+        $("#total_pagar_html").html("MXN " + total_pagar.toFixed(2));
+        $("#total_pagar").val(total_pagar.toFixed(2));
+    }
+    //Esta funcion evalua si hay datos agregados si es asi muestra o oculta el boton
+    function evaluar() {
+        if (total > 0) {
+            $("#guardar").show();
+        } else {
+            $("#guardar").hide();
+        }
+    }
+
+    function eliminar(index) {
+        stock = $("#stock").val();
+        quantity2 = $("#quantity" + index + "").val();
+        product2 = document.getElementById("product" + index + "").value;
+        var newstock;
+        for (var stocks of stockArray) {
+            if (stocks.ID == product2) {
+                newstock = stocks.Stock + parseInt(quantity2);
+            }
+        }
+        stockArray.push({
+            "ID": product2,
+            "Stock": newstock
+        });
+        document.getElementById("stock").value = newstock;
+        document.getElementById("product_id").value = product2;
+
+        total = total - subtotal[index];
+        total_impuesto = total * impuesto / 100;
+        total_pagar_html = total + total_impuesto;
+        $("#total").html("MXN" + total);
+        $("#total_impuesto").html("MXN" + total_impuesto);
+        $("#total_pagar_html").html("MXN" + total_pagar_html);
+        $("#total_pagar").val(total_pagar_html.toFixed(2));
+        $("#fila" + index).remove();
+        evaluar();
+    }
 </script>
 
 @endsection

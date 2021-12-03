@@ -6,16 +6,16 @@
         border: none;
         padding: 0;
         background: none;
-      }
+    }
 </style>
 
 @endsection
 @section('create')
 <li class="nav-item d-none d-lg-flex">
     <a class="nav-link" href="{{route('purchases.create')}}">
-      <span class="btn btn-primary">+ Registrar compra</span>
+        <span class="btn btn-primary">+ Registrar compra</span>
     </a>
-  </li>
+</li>
 @endsection
 @section('options')
 @endsection
@@ -38,18 +38,18 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    
+
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title">Compras</h4>
-                        {{--  <i class="fas fa-ellipsis-v"></i>  --}}
+                        {{-- <i class="fas fa-ellipsis-v"></i>  --}}
                         <div class="btn-group">
                             <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-ellipsis-v"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                              <a href="{{route('purchases.create')}}" class="dropdown-item">Registrar</a>
+                                <a href="{{route('purchases.create')}}" class="dropdown-item">Registrar</a>
                             </div>
-                          </div>
+                        </div>
                     </div>
 
                     <div class="table-responsive">
@@ -77,7 +77,7 @@
                                     @if ($purchase->status == 'VALID')
                                     <td>
                                         <a class="jsgrid-button btn btn-success" href="{{route('change.status.purchases', $purchase)}}" title="Editar">
-                                            Activo <i class="fas fa-check"></i>
+                                            Aprobado <i class="fas fa-check"></i>
                                         </a>
                                     </td>
                                     @else
@@ -92,8 +92,8 @@
                                         <a href="{{route('purchases.pdf', $purchase)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-file-pdf"></i></a>
 
                                         <a href="{{route('purchases.show', $purchase)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-eye"></i></a>
-                                   
-                                      
+
+
                                     </td>
                                 </tr>
                                 @endforeach

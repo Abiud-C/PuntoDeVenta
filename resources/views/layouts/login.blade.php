@@ -31,7 +31,7 @@
               <div class="brand-logo">
                 <img src="{{asset('melody/images/logo.svg')}}" alt="logo">
               </div>
-              <h4>Texvn Online</h4>
+              <h4>Impulsadora Comercial Administradora Guijo</h4>
               <h6 class="font-weight-light">Descripción de la empresa.</h6>
 
 
@@ -40,7 +40,6 @@
 
             </div>
           </div>
-    
         </div>
       </div>
       <!-- content-wrapper ends -->
@@ -60,4 +59,5 @@
   {!! Html::script('melody/js/todolist.js') !!}
   <!-- endinject -->
 </body>
+
 </html>

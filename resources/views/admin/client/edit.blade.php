@@ -24,7 +24,7 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    
+
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title">Edición de cliente</h4>
                     </div>
@@ -33,53 +33,57 @@
 
 
                     <div class="form-group">
-                      <label for="name">Nombre</label>
-                      <input type="text"
-                        class="form-control" name="name" id="name" value="{{$client->name}}" aria-describedby="helpId" required>
+                        <label for="name">Nombre</label>
+                        <input type="text" class="form-control" name="name" id="name" value="{{$client->name}}" aria-describedby="helpId" required>
                     </div>
 
                     <div class="form-group">
                         <label for="ruc">RUC</label>
-                        <input type="number"
-                          class="form-control" name="ruc" id="ruc" value="{{$client->ruc}}" aria-describedby="helpId">
-                          <small id="helpId" class="form-text text-muted">Este campo es opcional.</small>
+                        <input type="number" class="form-control" name="ruc" id="ruc" value="{{$client->ruc}}" aria-describedby="helpId">
+                        <small id="helpId" class="form-text text-muted">Este campo es opcional.</small>
                     </div>
 
                     <div class="form-group">
                         <label for="address">Dirección</label>
-                        <input type="text"
-                          class="form-control" name="address" id="address" value="{{$client->address}}" aria-describedby="helpId">
-                          <small id="helpId" class="form-text text-muted">Este campo es opcional.</small>
+                        <input type="text" class="form-control" name="address" id="address" value="{{$client->address}}" aria-describedby="helpId">
+                        <small id="helpId" class="form-text text-muted">Este campo es opcional.</small>
                     </div>
 
                     <div class="form-group">
                         <label for="phone">Teléfono \ Celular</label>
-                        <input type="number"
-                          class="form-control" name="phone" id="phone" value="{{$client->phone}}" aria-describedby="helpId">
-                          <small id="helpId" class="form-text text-muted">Este campo es opcional.</small>
+                        <input type="number" class="form-control" name="phone" id="phone" value="{{$client->phone}}" aria-describedby="helpId">
+                        <small id="helpId" class="form-text text-muted">Este campo es opcional.</small>
                     </div>
 
                     <div class="form-group">
                         <label for="email">Correo electrónico</label>
-                        <input type="email"
-                          class="form-control" name="email" id="email" value="{{$client->email}}" aria-describedby="helpId">
-                          <small id="helpId" class="form-text text-muted">Este campo es opcional.</small>
+                        <input type="email" class="form-control" name="email" id="email" value="{{$client->email}}" aria-describedby="helpId">
+                        <small id="helpId" class="form-text text-muted">Este campo es opcional.</small>
                     </div>
-                    
 
-                     <button type="submit" class="btn btn-primary mr-2">Editar</button>
-                     <a href="{{route('clients.index')}}" class="btn btn-light">
+
+                    <button type="submit" class="btn btn-primary mr-2">Editar</button>
+                    <a href="{{route('clients.index')}}" class="btn btn-light">
                         Cancelar
-                     </a>
-                     {!! Form::close() !!}
+                    </a>
+                    {!! Form::close() !!}
                 </div>
-                {{--  <div class="card-footer text-muted">
+                {{-- <div class="card-footer text-muted">
                     {{$clients->render()}}
-                </div>  --}}
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>
+</div>
+@if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 @endsection
 @section('scripts')
 {!! Html::script('melody/js/dropify.js') !!}

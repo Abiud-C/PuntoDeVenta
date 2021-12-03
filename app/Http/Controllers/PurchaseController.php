@@ -17,7 +17,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 
 class PurchaseController extends Controller
 {
-     /*este constructor es parte del login de laravel
+    /*este constructor es parte del login de laravel
     el cual no permite a nadie entrar a estas url almenos que este logueado
     public function __construct()
     {
@@ -41,16 +41,16 @@ class PurchaseController extends Controller
     {
         $providers = Provider::get();
         $products = Product::where('status', 'ACTIVE')->get();
-        return view('admin.purchase.create', compact('providers','products'));
+        return view('admin.purchase.create', compact('providers', 'products'));
     }
     public function store(StoreRequest $request)
     {
-        $purchase = Purchase::create($request->all()+[
-            'user_id'=>Auth::user()->id,
-            'purchase_date'=>Carbon::now('America/Mexico_City'),
+        $purchase = Purchase::create($request->all() + [
+            'user_id' => Auth::user()->id,
+            'purchase_date' => Carbon::now('America/Mexico_City'),
         ]);
         foreach ($request->product_id as $key => $product) {
-            $results[] = array("product_id"=>$request->product_id[$key], "quantity"=>$request->quantity[$key], "price"=>$request->price[$key]);
+            $results[] = array("product_id" => $request->product_id[$key], "quantity" => $request->quantity[$key], "price" => $request->price[$key]);
             $productstock = Product::where('id', $request->product_id[$key])->get();
             $stock = $productstock[0]->stock + $request->quantity[$key];
             Product::where('id', $request->product_id[$key])->update(['stock' => $stock]);
@@ -60,7 +60,7 @@ class PurchaseController extends Controller
     }
     public function show(Purchase $purchase)
     {
-        $subtotal = 0 ;
+        $subtotal = 0;
         $purchaseDetails = $purchase->purchaseDetails;
         foreach ($purchaseDetails as $purchaseDetail) {
             $subtotal += $purchaseDetail->quantity * $purchaseDetail->price;
@@ -85,15 +85,15 @@ class PurchaseController extends Controller
 
     public function pdf(Purchase $purchase)
     {
-        $subtotal = 0 ;
+        $subtotal = 0;
         $purchaseDetails = $purchase->purchaseDetails;
         foreach ($purchaseDetails as $purchaseDetail) {
             $subtotal += $purchaseDetail->quantity * $purchaseDetail->price;
         }
         $pdf = PDF::loadView('admin.purchase.pdf', compact('purchase', 'subtotal', 'purchaseDetails'));
-        return $pdf->download('Reporte_de_compra_'.$purchase->id.'.pdf');
+        return $pdf->download('Reporte_de_compra_' . $purchase->id . '.pdf');
     }
-    
+
     public function upload(Request $reques, Purchase $purchase)
     {
         // $purchase->update($request->all());
@@ -102,15 +102,13 @@ class PurchaseController extends Controller
 
     public function change_status(Purchase $purchase)
     {
-        if ($purchase->status == 'PENDIENT') {
-            $purchase->update(['status'=>'PENDIENT']);
+
+        if ($purchase->status == 'VALID') {
+            $purchase->update(['status' => 'CANCELED']);
             return redirect()->back();
-        } else if($purchase->status == 'ACTIVE'){
-            $purchase->update(['status'=>'ACTIVE']);
+        } else if ($purchase->status == 'CANCELED') {
+            $purchase->update(['status' => 'VALID']);
             return redirect()->back();
-        }else if($purchase->status == 'CANCELED') {
-            $purchase->update(['status'=>'CANCELED']);
-            return redirect()->back();
-        } 
+        }
     }
 }

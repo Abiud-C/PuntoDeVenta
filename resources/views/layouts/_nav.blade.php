@@ -22,8 +22,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#page-layouts1" aria-expanded="false"
-                aria-controls="page-layouts">
+            <a class="nav-link" data-toggle="collapse" href="#page-layouts1" aria-expanded="false" aria-controls="page-layouts">
                 <i class="fas fa-chart-line menu-icon"></i>
                 <span class="menu-title">Reportes</span>
                 <i class="menu-arrow"></i>
@@ -31,7 +30,7 @@
             <div class="collapse" id="page-layouts1">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item d-none d-lg-block">
-                        <a class="nav-link" href="{{route('reports.day')}}">Reportes por día</a>
+                        <a class="nav-link" href="{{route('reports.day')}}">Reportes del día</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('reports.date')}}">Reportes por fecha</a>
@@ -89,8 +88,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false"
-                aria-controls="page-layouts">
+            <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false" aria-controls="page-layouts">
                 <i class="fas fa-cogs menu-icon"></i>
                 <span class="menu-title">Configuración</span>
                 <i class="menu-arrow"></i>
@@ -106,6 +104,6 @@
                 </ul>
             </div>
         </li>
-       
+
     </ul>
 </nav>

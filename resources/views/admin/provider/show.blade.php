@@ -16,7 +16,8 @@
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Panel administrador</a></li> <li class="breadcrumb-item"><a href="#">Proveedores</a></li>
+                <li class="breadcrumb-item"><a href="#">Panel administrador</a></li>
+                <li class="breadcrumb-item"><a href="#">Proveedores</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{$provider->name}}</li>
             </ol>
         </nav>
@@ -34,59 +35,103 @@
                             </div>
                             <div class="border-bottom py-4">
                                 <div class="list-group">
-                                    <button type="button" class="list-group-item list-group-item-action active">
+                                    <button type="button" class="list-group-item list-group-item-action active" data-toggle="list" href="#list-about" role="tab" aria-controls="about">
                                         Sobre proveedor
                                     </button>
-                                    <button type="button"
-                                        class="list-group-item list-group-item-action">Productos</button>
-                                    <button type="button" class="list-group-item list-group-item-action">Registrar
-                                        producto</button>
+                                    <button type="button" class="list-group-item list-group-item-action" data-toggle="list" href="#list-products" role="tab" aria-controls="products">Productos</button>
+                                    <a href="{{route('products.create')}}" class="list-group-item list-group-item-action" type="button">Registrar
+                                        producto</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-8 pl-lg-5">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <h4>Información de proveedor</h4>
-                                </div>
-                            </div>
-                            <div class="profile-feed">
-                                <div class="d-flex align-items-start profile-feed-item">
-
-                                   
-
-                                    <div class="form-group col-md-6">
-                                        <strong><i class="fab fa-product-hunt mr-1"></i> Nombre</strong>
-                                        <p class="text-muted">
-                                            {{$provider->name}}
-                                        </p>
-                                        <hr>
-                                        <strong><i class="fas fa-address-card mr-1"></i> Numero de RUC</strong>
-                                        <p class="text-muted">
-                                            {{$provider->ruc_number}}
-                                        </p>
-                                        <hr>
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="list-about" role="tabpanel" aria-labelledby="list-about-list">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h4>Información de proveedor</h4>
+                                        </div>
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <strong>
-                                            <i class="fas fa-mobile mr-1"></i>
-                                            Teléfono</strong>
-                                        <p class="text-muted">
-                                            {{$provider->phone}}
-                                        </p>
-                                        <hr>
-                                        <strong><i class="fas fa-envelope mr-1"></i> Correo</strong>
-                                        <p class="text-muted">
-                                            {{$provider->email}}
-                                        </p>
-                                        <hr>
-                                        <strong><i class="fas fa-map-marked-alt mr-1"></i> Dirección</strong>
-                                        <p class="text-muted">
-                                            {{$provider->address}}
-                                        </p>
-                                        <hr>
+                                    <div class="profile-feed">
+                                        <div class="d-flex align-items-start profile-feed-item">
+                                            <div class="form-group col-md-6">
+                                                <strong><i class="fab fa-product-hunt mr-1"></i> Nombre</strong>
+                                                <p class="text-muted">
+                                                    {{$provider->name}}
+                                                </p>
+                                                <hr>
+                                                <strong><i class="fas fa-address-card mr-1"></i> Numero de RUC</strong>
+                                                <p class="text-muted">
+                                                    {{$provider->ruc_number}}
+                                                </p>
+                                                <hr>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <strong>
+                                                    <i class="fas fa-mobile mr-1"></i>
+                                                    Teléfono</strong>
+                                                <p class="text-muted">
+                                                    {{$provider->phone}}
+                                                </p>
+                                                <hr>
+                                                <strong><i class="fas fa-envelope mr-1"></i> Correo</strong>
+                                                <p class="text-muted">
+                                                    {{$provider->email}}
+                                                </p>
+                                                <hr>
+                                                <strong><i class="fas fa-map-marked-alt mr-1"></i> Dirección</strong>
+                                                <p class="text-muted">
+                                                    {{$provider->address}}
+                                                </p>
+                                                <hr>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+
+                                <div class="tab-pane fade show" id="list-products" role="tabpanel" aria-labelledby="list-products-list">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h4>Productos</h4>
+                                        </div>
+                                    </div>
+                                    <div class="profile-feed">
+                                        <div class="d-flex align-items-start profile-feed-item">
+
+                                            <div class="table-responsive">
+                                                <table id="order-listing" class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Id</th>
+                                                            <th>Code</th>
+                                                            <th>Nomnre</th>
+                                                            <th>Cantidad</th>
+                                                            <th>Imagen</th>
+                                                            <th>Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($products as $product)
+                                                        <tr>
+                                                            <th scope="row">{{$product->id}}</th>
+                                                            <td>{{$product->code}}</td>
+                                                            <td>{{$product->name}}</td>
+                                                            <td>{{$product->stock}}</td>
+                                                            <td> <img src="{{asset('image/'.$product->image)}}" alt="profile" class="img-lg  mb-3" /></td>
+                                                            <td> <a href="{{route('products.show', $product)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-eye"></i></a>
+                                                            </td>
+
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div>
                     </div>

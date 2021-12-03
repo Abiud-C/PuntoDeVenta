@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Sale;
+use App\SaleDetail;
 use Illuminate\Http\Request;
 use App\Http\Requests\Client\StoreRequest;
 use App\Http\Requests\Client\UpdateRequest;
@@ -40,11 +42,14 @@ class ClientController extends Controller
     }
     public function show(Client $client)
     {
+        $sales = Sale::where('client_id', $client->id)->get();
+        //$sales_details = SaleDetail::where('sale_id', $sales->id)->get(); //quantity, 
+
         $total_purchases = 0;
-        foreach ($client->sales as $key =>  $sale) {
-            $total_purchases+=$sale->total;
+        foreach ($sales as $key =>  $sale) {
+            $total_purchases += $sale->total;
         }
-        return view('admin.client.show', compact('client', 'total_purchases'));
+        return view('admin.client.show', compact('client', 'sales', 'total_purchases'));
     }
     public function edit(Client $client)
     {
